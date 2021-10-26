@@ -43,22 +43,18 @@ class EmbeddedExplicitRungeKutta:
             if self.bhat is None:
                 ys.append(y + dt * dy)
                 ts.append(t + dt)
-
-            # TODO: In the next lines, compute yhat or dyhat, estimate error,
-            # decide whether to accept step or not, compute new time step etc.
             else:
-                # TODO: Compute dyhat
                 dyhat = sum(self.bhat[i] * ks[i] for i in range(s))
 
-                # TODO: Error estimate, use norm() function for this
+                # Error estimate
                 err = norm(dt * (dyhat - dy))
 
-                # TODO: Accept time-step
+                # Accept time-step
                 if err <= tol:
                     ys.append(y + dt * dyhat)
                     ts.append(t + dt)
                 else:
-                    print(f"Step is rejected at t = {t}, N = {N} with err = {err}")
+                    #print(f"Step is rejected at t = {t}, N = {N} with err = {err}")
                     N_rej += 1
 
                 dt = dt * 0.8 * (tol / err) ** (1 / (self.order + 1))
